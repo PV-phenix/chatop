@@ -7,3 +7,9 @@ example of an olympic country:
     participations: []
 }
 */
+export class Country
+{
+    id!: number;
+    country!: string;
+    participations!: string[];
+}

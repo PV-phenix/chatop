@@ -4,7 +4,7 @@ import { OlympicService } from './olympic.service';
 
 describe('OlympicService', () => {
   let service: OlympicService;
-
+  
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(OlympicService);

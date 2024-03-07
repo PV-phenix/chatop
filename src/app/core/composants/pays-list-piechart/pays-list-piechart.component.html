@@ -1,0 +1,13 @@
+<h1>Angular pie chart - Projet 2 - OpenClassrooms</h1>
+<p>Bah oui c'est bon.  </p> 
+<div>
+<canvas *ngIf='pieChartData' baseChart
+    [type]="'pie'"
+    [datasets]="pieChartDatasets"         
+    [labels]="pieChartLabels" 
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [legend]="pieChartLegend"
+    [options]="pieChartOptions">
+</canvas>
+</div>
