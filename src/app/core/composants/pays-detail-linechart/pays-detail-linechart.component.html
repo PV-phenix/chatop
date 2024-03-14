@@ -1,5 +1,13 @@
 <div class="class">
-    <h2>LineChart détails par pays</h2>
-    <canvas class="" id="ChartLine"></canvas>
-</div>
+    <h1>Angular pie chart - Projet 2 - OpenClassrooms</h1>
+    <canvas id ='pays-detail-linechart' baseChart width="600" height="500"
+        [type]="'line'"
+        [datasets]="lineChartDatasets"         
+        [labels]="lineChartLabels" 
+        [options]="lineChartOptions"
+        [plugins]="lineChartPlugins"
+        [legend]="lineChartLegend"
+        [options]="lineChartOptions"
+        >
+    </canvas>
 <a routerLink="/telesport">Retour</a>
