@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Country } from '../models/Olympic';
+import { Country } from '@core/models/Olympic';
 import { Participation } from '../models/Participation';
+
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
+
   loadInitialData() {
     return this.http.get<any>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
@@ -31,11 +33,12 @@ export class OlympicService {
     );
   }
 
+
   getOlympics() {
     return this.olympics$.asObservable();
   }
 
-  getAllCountry(): Observable<Country[],Participation[]>{
+  getAllCountry(): Observable<Country[]>{
     return this.http.get<Country[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
@@ -46,5 +49,11 @@ export class OlympicService {
         return caught;
       })
     );
+
+    
   }
+
+  getDetailCountryById(participationId: Number): Observable<Participation[]>{return this.http.get<Participation[]>(this.olympicUrl).pipe(tap(value => this.olympics$.next(participationId)))};
+
+  getChartInfo(participationId:Number){return this.http.get(this.olympicUrl).pipe(tap(_ => `id=${participationId}`))};
 }

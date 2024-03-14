@@ -1,13 +1,13 @@
 <h1>Angular pie chart - Projet 2 - OpenClassrooms</h1>
-<p>Bah oui c'est bon.  </p> 
-<div>
-<canvas *ngIf='pieChartData' baseChart
+<canvas id ='pays-list-piechart' baseChart width="600" height="500"
     [type]="'pie'"
     [datasets]="pieChartDatasets"         
     [labels]="pieChartLabels" 
     [options]="pieChartOptions"
     [plugins]="pieChartPlugins"
     [legend]="pieChartLegend"
-    [options]="pieChartOptions">
+    [options]="pieChartOptions"
+    (chartClick)="onChartClick($event)"
+    >
 </canvas>
-</div>
+<a routerLink="telesport/detail" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Détails</a>

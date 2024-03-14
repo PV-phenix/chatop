@@ -7,9 +7,11 @@ example of an olympic country:
     participations: []
 }
 */
+import { Participation } from "./Participation";
+
 export class Country
 {
     id!: number;
     country!: string;
-    participations!: string[];
+    participations!: Participation[];
 }
