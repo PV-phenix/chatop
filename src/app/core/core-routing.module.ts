@@ -6,7 +6,7 @@ import {PaysDetailLinechartComponent} from './composants/pays-detail-linechart/p
 
 
 const routes: Routes = [
-  {path:'detail/:id', component:PaysDetailLinechartComponent},
+  {path:'telesport/detail/:id', component:PaysDetailLinechartComponent},
   {path:'telesport', component:PaysListPiechartComponent},
   {path:'', pathMatch:'full',redirectTo:'telesport'}
 ];

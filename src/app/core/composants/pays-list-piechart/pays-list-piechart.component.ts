@@ -3,7 +3,7 @@ import { ChartType, ChartOptions, ChartData,Chart, Plugin} from 'chart.js/auto';
 import { OlympicService } from '@core/services/olympic.service';
 import { take } from 'rxjs';
 import { Participation } from '@core/models/Participation';
-import { ActivatedRoute,Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 
@@ -73,13 +73,16 @@ export class PaysListPiechartComponent implements OnInit {
   onChartClick = ($event:any) => {
     
     if ($event.active.length > 0) {
-      const participationId = $event.active[0].index;
-      window.console.log(participationId);
+      const pId = $event.active[0].index;
+      window.console.log(pId);
     // window.console.log('onChartClick', $event.active[0].index);
-    window.console.log(this.olympicService.getDetailCountryById(participationId).pipe(take(1)).subscribe(donne => {donne.map(c=>c.athleteCount);}));
-    window.console.log(this.olympicService.getChartInfo(participationId));}
+    this.olympicService.getDetailCountryById(pId).pipe(take(1)).subscribe(donne => {donne.map(c=>c.athleteCount);});
+    this.olympicService.getChartInfo(pId);
+    this.route.navigateByUrl('telesport/detail/'+pId);  
+  }
     //$event.getDetailCountryById(0);
-    this.route.navigateByUrl('telesport/detail/:participationId');
+    
+   
   };
   
 }
