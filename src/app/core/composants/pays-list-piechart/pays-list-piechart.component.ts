@@ -34,32 +34,38 @@ export class PaysListPiechartComponent implements OnInit {
   //pieChartPlugins =[];
  
   pieChartPlugins = [];
-  
+  forDatasets!:number[];
  
 
   
   ngOnInit(): void {
-    // const participationId = +this.route.snapshot.params['participations.id'];
+    
+    
+    this.olympicService.getAllCountry().subscribe(donne => {
+    
+   
+    //for (let i=0; i<donne.length;i++){this.forDatasets.push(this.participations[i].medalsCount)};
+    this.pieChartLabels = donne.map(c=>c.country);
+      // for (let i=0; i<donne.length;i++) {this.pieChartLabels.push(donne.map(p=>p.participations[i].year));}
+    for (let i=0; i<donne.length;i++) {this.pieChartLabels,this.pieChartDatasets.push({data:donne.map(c=>c.participations[i].medalsCount)})};
 
-    this.olympicService.getAllCountry().pipe(take(1)).subscribe(donne => {
-      
-      this.pieChartLabels = donne.map(c=>c.country);
-      this.pieChartDatasets = [{data: donne.map(c=>c.participations[0].medalsCount)}];
-      this.pieChartData = {
-        labels: this.pieChartLabels,  
-        datasets: this.pieChartDatasets,
         
-        // [
-        //   {
-        //     label:'Pays participants',
-        //     data: donne.map(c=>c.participations[0].year),
-        //     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56' , 'grey'],
-        //     hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56' , 'grey'],
-        //     borderColor:['rgba(255,99,32,1','rgba(54,162,235,1)'],
-        //     borderWidth:1
+    this.pieChartData = {
+      labels: this.pieChartLabels,  
+      datasets: this.pieChartDatasets,
+      //
+      // data:
+      //   [
+      //     {
+      //       label:'Pays participants',
+      //       data: donne.map(c=>c.participations[0].year),
+      //       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56' , 'grey'],
+      //       hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56' , 'grey'],
+      //       borderColor:['rgba(255,99,32,1','rgba(54,162,235,1)'],
+      //       borderWidth:1
             
-        //   }
-        // ],
+      //     }
+      //   ],
              
       };
     });

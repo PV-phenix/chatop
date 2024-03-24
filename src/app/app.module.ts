@@ -8,10 +8,11 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NgChartsModule, NgChartsConfiguration,BaseChartDirective } from 'ng2-charts';
 import { PaysListPiechartComponent } from './core/composants/pays-list-piechart/pays-list-piechart.component';
 import { PaysDetailLinechartComponent } from './core/composants/pays-detail-linechart/pays-detail-linechart.component';
+import { HeaderComponent } from './core/composants/header/header.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, PaysListPiechartComponent, PaysDetailLinechartComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, PaysListPiechartComponent, PaysDetailLinechartComponent, HeaderComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,NgChartsModule],
   providers: [NgChartsConfiguration,BaseChartDirective],
   bootstrap: [AppComponent],
