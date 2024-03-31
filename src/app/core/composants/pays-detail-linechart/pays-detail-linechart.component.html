@@ -1,12 +1,14 @@
-<div class="chartContainer">
+<div  style="display: block">
+    <h3>{{labelOfLineChart}}</h3>
     <canvas id ='chartCanvas'  baseChart width="500" height="400"
         [type]="'line'"
-        [datasets]="lineChartDatasets"         
-        [labels]="lineChartLabels" 
+        [data]="lineChartData"        
+        
         [options]="lineChartOptions"
-        [plugins]="lineChartPlugins"
+        
         [legend]="lineChartLegend"
         [options]="lineChartOptions"
+        
         >
     </canvas>
 </div>

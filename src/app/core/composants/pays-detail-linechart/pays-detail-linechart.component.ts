@@ -1,120 +1,177 @@
-import { Component, OnInit} from '@angular/core';
-import { ChartType, ChartOptions, ChartData,Chart, Plugin} from 'chart.js/auto';
+import { Component, OnInit, ElementRef,Input, ViewChild} from '@angular/core';
+import { ChartType, ChartOptions,ChartDataset,Chart,Point,ChartConfiguration,ChartItem, LabelItem} from 'chart.js/auto';
+
+
 import { OlympicService } from '@core/services/olympic.service';
-import { take } from 'rxjs';
+
 import { Participation } from '@core/models/Participation'
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pays-detail-linechart',
   templateUrl: './pays-detail-linechart.component.html',
   styleUrls: ['./pays-detail-linechart.component.scss']
 })
-export class PaysDetailLinechartComponent implements OnInit {
+export class PaysDetailLinechartComponent implements OnInit 
+{
 
-  constructor(private olympicService: OlympicService) { }
+  constructor(private olympicService: OlympicService, private route:ActivatedRoute) { }
 
-  lineChartData!: ChartData<ChartType, number[], string>;
-  lineChart!: Chart;
-  lineChartOptions: ChartOptions<'line'> = {responsive: false, 
-    layout: {
-        padding: {
-            left: 100
-        }
-    }
-   };
-  lineChartLabels:string[]=['Pays participants'];
-  lineChartDatasets = [ { data: [0]  } ];
-  participations!:Participation[];
-  participationId!:Number;
-
-  
-  
-  lineChartLegend = true;
-  //pieChartPlugins =[];
+  labelOfLineChart!: string;
+  mylabels:number[]=[2012,2016,2020];
  
-  lineChartPlugins = [];
-
-  chart: any;
-
-  ngOnInit(): void {
-
-    //this.createChart();
-    // const labels = [1900,2000]
-    // const data = {
-    //   labels: this.lineChartLabels,
-
-    //   datasets: [{
-    //     axis: 'x',
-    //     label: 'Médailles par années',
-        
-    //     data: [65, 59, 80, 81, 56, 55, 40],
-    //     fill: false,
-    //     backgroundColor: [
-    //       'rgba(255, 99, 132, 0.2)',
-    //       'rgba(255, 159, 64, 0.2)',
-    //       'rgba(255, 205, 86, 0.2)',
-    //       'rgba(75, 192, 192, 0.2)',
-    //       'rgba(54, 162, 235, 0.2)',
-    //       'rgba(153, 102, 255, 0.2)',
-    //       'rgba(201, 203, 207, 0.2)'
-    //     ],
-    //     borderColor: [
-    //       'rgb(255, 99, 132)',
-    //       'rgb(255, 159, 64)',
-    //       'rgb(255, 205, 86)',
-    //       'rgb(75, 192, 192)',
-    //       'rgb(54, 162, 235)',
-    //       'rgb(153, 102, 255)',
-    //       'rgb(201, 203, 207)'
-    //     ],
-    //     borderWidth: 1
-    //   }]
-    // };
+  lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [],
+    datasets: []
+    
+  };
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: false
+  };
+  public lineChartLegend = true;
+  // lineChartData!: ChartData<ChartType, number[], string>;
   
-    this.olympicService.getDetailCountryById(0).pipe(take(1)).subscribe(donne => {
+  // @ViewChild('chart',{read: ElementRef}) 
+  // lineChartData: ChartDataset[] = [
+  //   {label: 'Crude oil prices' ,data: [85, 72, 78, 75, 77, 75]}];
 
-      this.lineChartLabels = donne.map(c=>c.city);
-      this.lineChartDatasets = [{data: donne.map(c=>c.athleteCount)}];
-      this.lineChartData = {
-        labels: this.lineChartLabels,  
-        datasets: this.lineChartDatasets,
+  // lineChartData!: ChartData<ChartType, number[], String>;
 
-        
-        
-      }
+  // lineChart!: any;
+  // private chartRef!: ElementRef;
+  // @Input()
+  // data!: Point[];
+  // lineChartOptions: ChartOptions<'line'> = {responsive: false, 
+  //   layout: {
+  //       padding: {
+  //           left: 100
+  //       }
+  //   }
+  //  };
+  // lineChartLabels:String[]=['Pays participants'];
+  // lineChartDatasets = [ { data: [0]  } ];
+  // participations!:Participation[];
+  // participationId!:Number;
 
-      
-    });
-  }
-
-  createChart(){
   
-    this.chart = new Chart("MyChart", {
-      type: 'line', //this denotes tha type of chart
+  
+  // lineChartLegend = true;
+  // //pieChartPlugins =[];
+ 
+  // lineChartPlugins = [];
 
-      data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ], 
-	       datasets: [
-          {
-            label: "Sales",
-            data: ['467','576', '572', '79', '92',
-								 '574', '573', '576'],
-            backgroundColor: 'blue'
-          },
-          {
-            label: "Profit",
-            data: ['542', '542', '536', '327', '17',
-									 '0.00', '538', '541'],
-            backgroundColor: 'limegreen'
-          }  
-        ]
+  // mychart!: ChartData<'line', string[], Number[]>;
+
+  ngOnInit() {
+
+   
+    const participationId = +this.route.snapshot.params['id'];
+    this.olympicService.getCountry(participationId).subscribe(donne=>this.labelOfLineChart=donne[participationId-1].country);
+    
+
+    this.olympicService.getDetailCountryById(participationId).subscribe(donne =>{
+    for (let i=0; i<donne.length;i++) {this.mylabels.push(donne[i].year);}});
+    console.log(this.mylabels);
+    
+    //let arrayYear: Observable<Participation[]>;
+    //this.olympicService.getDetailCountryById(participationId).subscribe(donne =>(donne.map(c=>c.year)));
+    this.lineChartData={  labels:this.mylabels,
+      //this.olympicService.getDetailCountryById(participationId).subscribe(donne =>(donne.map(c=>c.year.toString())))
+    
+    datasets: [
+      {
+        data: [ 28, 32, 40],
+        label: 'Ech.1: Nombre de médailles par année',
+        fill: false,
+        tension: 0.5,//Pour courber la ligne
+        yAxisID: 'MedailAxe',
+        borderColor: 'red',
+        backgroundColor: 'rgba(255,0,0,0.3)',
+        pointBackgroundColor: 'rgba(255,127,0,1)'
       },
-      options: {
-        aspectRatio:2.5
-      }
-      
-    });
+      {
+        data: [ 375, 381, 315 ],
+        label: 'Ech.2:Nombre athlètes',
+        fill: false,
+        tension: 0.5,//Pour courber la ligne
+        borderColor: 'blue',
+        yAxisID: 'AthletAxe',
+        backgroundColor: 'rgba(125,20,100,0.4)',
+        pointBackgroundColor: 'cyan'
+        
+      },
+    {
+        data: [3, 1, 5],
+        label: 'Ech.3:Classement',
+        fill: 'false',
+        tension: 0.5,//Pour courber la ligne
+        backgroundColor: 'rgba(125,100,80,0.3)',
+        borderColor: 'green',
+        yAxisID: 'ClassAxe',
+        
+         },
+
+    ],
   }
+      
+  }
+
+      
+    // });
+    //this.createChart(participationId); 
+    
+
+    
+  // }
+
+  // createChart(id:number){ 
+    
+  //   // this.lineChart = new Chart('toto',{type: 'line',data:{
+  //   //   datasets: [{
+  //   //     label: 'Interesting Data',
+  //   //     data: this.data,
+  //   //     fill: true
+  //   //   }]
+  //   // },
+  //   // options: {
+  //   //   responsive: true,
+  //   //   maintainAspectRatio: false,
+  //   //   scales: {
+  //   //     xAxis: {
+  //   //       type: 'linear'
+  //   //     },
+  //   //   }
+  //   // }
+  
+  //   // });
+  //   this.lineChart = new Chart("MyChart", {
+  //     type: 'line', //this denotes tha type of chart
+
+  //     data: {// values on X-Axis
+  //       labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
+	// 							 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ], 
+	//        datasets: [
+  //         {
+  //           label: "Sales",
+  //           data: ['467','576', '572', '79', '92',
+	// 							 '574', '573', '576'],
+  //           backgroundColor: 'blue'
+  //         },
+  //         {
+  //           label: "Profit",
+  //           data: ['542', '542', '536', '327', '17',
+	// 								 '0.00', '538', '541'],
+  //           backgroundColor: 'limegreen'
+  //         }  
+  //       ]
+  //     },
+  //     options: {
+  //       aspectRatio:2.5
+  //     }
+      
+  //   });
+    
+  //  }
 
  }

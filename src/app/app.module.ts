@@ -11,6 +11,7 @@ import { PaysDetailLinechartComponent } from './core/composants/pays-detail-line
 import { HeaderComponent } from './core/composants/header/header.component';
 
 
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, PaysListPiechartComponent, PaysDetailLinechartComponent, HeaderComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,NgChartsModule],
