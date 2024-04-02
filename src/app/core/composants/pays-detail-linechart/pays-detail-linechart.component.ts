@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef,Input, ViewChild} from '@angular/core';
 import { ChartType, ChartOptions,ChartDataset,Chart,Point,ChartConfiguration,ChartItem, LabelItem} from 'chart.js/auto';
 
 
+
 import { OlympicService } from '@core/services/olympic.service';
 
 import { Participation } from '@core/models/Participation'
@@ -20,7 +21,7 @@ export class PaysDetailLinechartComponent implements OnInit
 
   labelOfLineChart!: string;
   mylabels:number[]=[2012,2016,2020];
- 
+  NbMedailles:number[]=[];
   lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
     datasets: []
@@ -70,9 +71,12 @@ export class PaysDetailLinechartComponent implements OnInit
     this.olympicService.getCountry(participationId).subscribe(donne=>this.labelOfLineChart=donne[participationId-1].country);
     
 
-    this.olympicService.getDetailCountryById(participationId).subscribe(donne =>{
-    for (let i=0; i<donne.length;i++) {this.mylabels.push(donne[i].year);}});
-    console.log(this.mylabels);
+    // this.olympicService.getDetailCountryById(participationId).subscribe(donne =>{
+    // for (let i=0; i<donne.length;i++) {this.mylabels.push(donne[i].year);this.NbMedailes.push(donne[i].athleteCount)}});
+
+    this.olympicService.getCountry(participationId-1).subscribe(donne =>{
+      for (let i=0; i<donne.length;i++) {this.NbMedailles.push(donne[participationId-1].participations[i].athleteCount);console.log(donne[participationId-1].participations[i].athleteCount)}});
+    
     
     //let arrayYear: Observable<Participation[]>;
     //this.olympicService.getDetailCountryById(participationId).subscribe(donne =>(donne.map(c=>c.year)));
@@ -81,7 +85,7 @@ export class PaysDetailLinechartComponent implements OnInit
     
     datasets: [
       {
-        data: [ 28, 32, 40],
+        data: this.NbMedailles,
         label: 'Ech.1: Nombre de médailles par année',
         fill: false,
         tension: 0.5,//Pour courber la ligne
