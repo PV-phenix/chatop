@@ -33,8 +33,9 @@ export class PaysListPiechartComponent implements OnInit {
    
   pieChartPlugins = [];
 
-  labelOfNbCountry!: string;
-  
+  labelOfNbCountry!: number;
+  labelOfNbOfJO!: number;
+
 
  
 
@@ -46,7 +47,8 @@ export class PaysListPiechartComponent implements OnInit {
       donne => {
                 this.pieChartDatasets =[{data:donne.map(c=>countMedals(c))}];
                 this.pieChartLabels = donne.map(c=>c.country); 
-                
+                this.labelOfNbCountry = donne.map(c=>c.id).length;
+                //this.labelOfNbOfJO = (for (let i=0;i<donne. donne.map(c=>c.participations.)
               }
     );
     
@@ -79,4 +81,6 @@ function countMedals(c: Country): any {
   
   return medalsCount;
 }
+
+
 
