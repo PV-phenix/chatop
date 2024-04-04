@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 import { Country } from '@app/core/models/Olympic';
 
 
-
-
 @Component({
   selector: 'app-pays-list-piechart',
   templateUrl: './pays-list-piechart.component.html',
@@ -21,7 +19,7 @@ export class PaysListPiechartComponent implements OnInit {
 
   } ;
   //public pieChartData: number[] = [51, 30];
-  public pieChartType: any = 'pie';
+  pieChartType: any = 'pie';
   pieChartData!: ChartData<ChartType, number[], string>;
   pieChart!: Chart;
   pieChartOptions: ChartOptions<'pie'> = {
@@ -32,9 +30,11 @@ export class PaysListPiechartComponent implements OnInit {
   participationId!:Number;
 
   pieChartLegend = true;
-  //pieChartPlugins =[];
- 
+   
   pieChartPlugins = [];
+
+  labelOfNbCountry!: string;
+  
 
  
 
