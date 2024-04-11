@@ -39,9 +39,6 @@ export class PaysDetailLinechartComponent implements OnInit
    this.olympicService.getCountry(participationId).subscribe(donne =>{this.labelOfLineChart=donne[participationId].country});
     
 
-    // this.olympicService.getDetailCountryById(participationId).subscribe(donne =>{
-    // for (let i=0; i<donne.length;i++) {this.mylabels.push(donne[i].year);this.NbMedailes.push(donne[i].athleteCount)}});
-
     this.olympicService.getCountry(participationId-1).subscribe
     (
       donne =>

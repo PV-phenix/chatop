@@ -4,6 +4,7 @@ import { OlympicService } from '@core/services/olympic.service';
 import { Participation } from '@core/models/Participation';
 import { Router } from '@angular/router';
 import { Country } from '@app/core/models/Olympic';
+import { max } from 'rxjs';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class PaysListPiechartComponent implements OnInit {
   pieChartPlugins = [];
 
   labelOfNbCountry!: number;
-  labelOfNbOfJO!: number;
+  labelOfNbOfJO!: any;
 
 
  
@@ -48,7 +49,7 @@ export class PaysListPiechartComponent implements OnInit {
                 this.pieChartDatasets =[{data:donne.map(c=>countMedals(c))}];
                 this.pieChartLabels = donne.map(c=>c.country); 
                 this.labelOfNbCountry = donne.map(c=>c.id).length;
-                //this.labelOfNbOfJO = (for (let i=0;i<donne. donne.map(c=>c.participations.)
+                this.labelOfNbOfJO = donne.map(c =>countNbJO(c.participations));
               }
     );
     
@@ -81,6 +82,19 @@ function countMedals(c: Country): any {
   
   return medalsCount;
 }
+
+
+
+function countNbJO(p: Participation[]): any 
+{
+    if (!p.filter(o => o.year).length) throw new Error('Function not implemented.');
+    return p.filter(o => o.id).length;
+
+}
+
+
+   
+  
 
 
 
