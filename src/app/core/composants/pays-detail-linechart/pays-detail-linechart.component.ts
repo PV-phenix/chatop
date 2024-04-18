@@ -4,6 +4,7 @@ import { ChartOptions,ChartConfiguration} from 'chart.js/auto';
 import { OlympicService } from '@core/services/olympic.service';
 
 import { ActivatedRoute } from '@angular/router';
+import { PercentPipe } from '@angular/common';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class PaysDetailLinechartComponent implements OnInit
   mylabels:Number[]=[];
   NbMedailles:number[]=[];
   NbAthletes:number[]=[];
+  NumClassement:number[]=[];
   
   lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
@@ -46,6 +48,8 @@ export class PaysDetailLinechartComponent implements OnInit
         for (let i=0; i<donne[participationId].participations.length;i++)
         {
           {this.mylabels.push(donne[participationId].participations[i].year),this.NbAthletes.push(donne[participationId].participations[i].athleteCount),this.NbMedailles.push(donne[participationId].participations[i].medalsCount),
+            this.NumClassement.push((donne[participationId].participations[i].medalsCount/(donne[participationId].participations[i].athleteCount))*10)
+          ,
    
           this.lineChartData=
           {  
@@ -74,8 +78,8 @@ export class PaysDetailLinechartComponent implements OnInit
                 
               },
               {
-                data: [3, 1, 5],
-                label: 'Ech.3:Classement',
+                data: toPercent(this.NumClassement),
+                label: 'Ech.3:Variation',
                 fill: 'false',
                 tension: 0.5,//Pour courber la ligne
                 backgroundColor: 'rgba(125,100,80,0.3)',
@@ -92,3 +96,12 @@ export class PaysDetailLinechartComponent implements OnInit
   }   
   
 }
+function toPercent(myNumber: number[]): number[] {
+  let tab:number[]=[0];
+  myNumber.forEach(function (value) {
+    tab.push(value*100)});
+  //tab.push(myNumber.forEach(item =>item * 100));
+  return tab;
+
+}
+
