@@ -1,10 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { ChartOptions,ChartConfiguration} from 'chart.js/auto';
-
 import { OlympicService } from '@core/services/olympic.service';
-
 import { ActivatedRoute } from '@angular/router';
-import { PercentPipe } from '@angular/common';
+
 
 
 @Component({
@@ -40,17 +38,19 @@ export class PaysDetailLinechartComponent implements OnInit
   const participationId = +this.route.snapshot.params['id'];
    this.olympicService.getCountry(participationId).subscribe(donne =>{this.labelOfLineChart=donne[participationId].country});
     
-
+   
     this.olympicService.getCountry(participationId-1).subscribe
     (
       donne =>
       {
+        
         for (let i=0; i<donne[participationId].participations.length;i++)
         {
-          {this.mylabels.push(donne[participationId].participations[i].year),this.NbAthletes.push(donne[participationId].participations[i].athleteCount),this.NbMedailles.push(donne[participationId].participations[i].medalsCount),
-            this.NumClassement.push((donne[participationId].participations[i].medalsCount/(donne[participationId].participations[i].athleteCount))*10)
+             {this.mylabels.push(donne[participationId].participations[i].year),this.NbAthletes.push(donne[participationId].participations[i].athleteCount),this.NbMedailles.push(donne[participationId].participations[i].medalsCount),
+            this.NumClassement.push((donne[participationId].participations[i].medalsCount/(donne[participationId].participations[i].athleteCount)))
+            
           ,
-   
+              
           this.lineChartData=
           {  
             labels:this.mylabels,    
@@ -93,6 +93,7 @@ export class PaysDetailLinechartComponent implements OnInit
       }
       }
     )
+   
   }   
   
 }
@@ -100,7 +101,7 @@ function toPercent(myNumber: number[]): number[] {
   let tab:number[]=[0];
   myNumber.forEach(function (value) {
     tab.push(value*100)});
-  //tab.push(myNumber.forEach(item =>item * 100));
+  
   return tab;
 
 }

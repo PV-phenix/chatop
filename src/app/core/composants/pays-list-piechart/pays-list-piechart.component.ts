@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType, ChartOptions, ChartData,Chart, Plugin} from 'chart.js/auto';
+import { ChartType, ChartOptions, ChartData,Chart} from 'chart.js/auto';
 import { OlympicService } from '@core/services/olympic.service';
 import { Participation } from '@core/models/Participation';
 import { Router } from '@angular/router';
 import { Country } from '@app/core/models/Olympic';
-import { max } from 'rxjs';
+
 
 
 @Component({
@@ -43,16 +43,20 @@ export class PaysListPiechartComponent implements OnInit {
   
   ngOnInit(): void {
     
+    let myArray:number[]=[0];
+    
     this.olympicService.getAllCountry().subscribe
     (
       donne => {
                 this.pieChartDatasets =[{data:donne.map(c=>countMedals(c))}];
                 this.pieChartLabels = donne.map(c=>c.country); 
                 this.labelOfNbCountry = donne.map(c=>c.id).length;
-                this.labelOfNbOfJO = donne.map(c =>countNbJO(c.participations));
+                myArray = donne.map(c =>countNbJO(c.participations));
+                this.labelOfNbOfJO= cumulNbJo(myArray);
+               
               }
     );
-    
+
    this.pieChartLegend = true;
 
   }
@@ -91,6 +95,15 @@ function countNbJO(p: Participation[]): any
     return p.filter(o => o.id).length;
 
 }
+
+function cumulNbJo(tab:number[]){
+  let sumOfJo= 0;
+  tab.forEach(item=> {sumOfJo += item})
+   
+  console.log(sumOfJo);
+  return sumOfJo;
+}
+
 
 
    
