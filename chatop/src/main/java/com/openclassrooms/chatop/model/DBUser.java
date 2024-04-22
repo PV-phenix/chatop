@@ -1,27 +1,43 @@
 package com.openclassrooms.chatop.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
-public class User {
+@Table(name = "users")
+@NamedQuery(name = "DBUser.findUserByEmail",
+query = "select u from DBUser u where u.email = ?1")
+public class DBUser {
 	
    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
    
-	private String name;
+   	@Column(name = "name")
+   	private String name;
+   	
+   	@Column(name = "email")   	
     private String email;
+   	
+   	@Column(name = "password")  	
     private String password;
+   	
+   	@Column(name = "role")
     private String role;
- 	private Timestamp created_at;
-    private Timestamp updated_at;
+   	
+   	@Column(name = "created_at")
+ 	private LocalDateTime created_at;
+   	
+   	@Column(name = "updated_at")
+    private LocalDateTime updated_at;
 	   
 	public Long getId() {
 		return id;
@@ -33,6 +49,13 @@ public class User {
 		return name;
 	}
 	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getUserName() {
+		return name;
+	}
+	public void setUserName(String name) {
 		this.name = name;
 	}
 	public String getEmail() {
@@ -53,16 +76,16 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public Timestamp getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(Timestamp created_at) {
+	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	public Timestamp getUpdated_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
-	public void setUpdated_at(Timestamp updated_at) {
+	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
 
