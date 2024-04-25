@@ -1,6 +1,5 @@
 package com.openclassrooms.chatop.model;
 
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;

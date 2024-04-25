@@ -7,13 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "DBUser.findUserByEmail",
-query = "select u from DBUser u where u.email = ?1")
 public class DBUser {
 	
    @Id
