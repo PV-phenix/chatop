@@ -1,29 +1,34 @@
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+Ce projet a été généré avec Angular CLI (https://github.com/angular/angular-cli) version 14.2.13.La version de Angular est 17.3.1.
 
-Don't forget to install your node_modules before starting (`npm install`).
+N'oubliez pas d'installer vos node_modules avant de commencer (`npm install`).
 
-## Development server
+# La branche par défaut est "main"
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Serveur de développement
 
-## Build
+Lancez `ng serve` pour un serveur de développement. Naviguez vers `http://localhost:4200/`. L'application sera automatiquement rechargée si vous changez l'un des fichiers sources.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Construction
 
-## Where to start
+Lancez `ng build` pour construire le projet. Les artefacts de construction seront stockés dans le répertoire `dist/`.
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+## Où commencer
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+Comme vous pouvez le voir, une architecture a déjà été définie pour le projet. Ce n'est qu'une suggestion, vous pouvez choisir d'utiliser la vôtre. L'architecture prédéfinie inclut (en plus de l'architecture angulaire par défaut) ce qui suit :
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+- Dossier `components` : contient tous les composants réutilisables.
+- `pages` folder : contient les composants utilisés pour le routage
+- Dossier `core` : contient la logique métier (dossiers `services` et `models`).
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
+Je vous suggère de commencer par comprendre ce code de départ. Portez une attention particulière à `app-routing.module.ts` et à `olympic.service.ts`.
 
-You're now ready to implement the requested features.
+Une fois maîtrisé, vous devriez continuer en créant les interfaces typescript à l'intérieur du dossier `models`. Comme vous pouvez le voir, j'ai déjà créé deux fichiers correspondant aux données incluses dans le `olympic.json`. Avec vos interfaces, améliorez le code en remplaçant chaque `any` par l'interface correspondante.
 
-Good luck!
+Vous êtes maintenant prêt à implémenter les fonctionnalités demandées.
+
+Nous vous souhaitons bonne chance !
+
+
+Traduit avec DeepL.com (version gratuite)
