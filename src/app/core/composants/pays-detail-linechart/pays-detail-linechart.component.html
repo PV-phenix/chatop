@@ -1,6 +1,10 @@
-<div  style="display: block">
-    <h3>{{labelOfLineChart}}</h3>
-    <canvas id ='chartCanvas'  baseChart width="600" height="500"
+<div  style="display: block" class="chartContainer" >
+    <h3 class="labelTitle">{{labelOfLineChart}}</h3>
+    @defer (when myCondition) 
+    {
+     <h4 class="chartError">{{errorMessage}} Cliquez sur retour</h4>
+    }
+    <canvas id ='chartCanvas'  baseChart 
         [type]="'line'"
         [data]="lineChartData"        
         [options]="lineChartOptions"
@@ -8,5 +12,6 @@
         [options]="lineChartOptions"
         >
     </canvas>
+
 </div>
-<a routerLink="/telesport">Retour</a>
+<a routerLink="/telesport">Retour</a>   

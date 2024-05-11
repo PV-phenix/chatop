@@ -1,13 +1,16 @@
-<h3>Nombre de médailles par pays</h3>
-<h5>Nombre de J.O.cumulés: {{labelOfNbOfJO}} -  Nombre de pays: {{labelOfNbCountry}}</h5>
-<canvas id ='pays-list-piechart' baseChart width="600" height="500"
+<div class="divContainer">
+<h3 class="labelTitle">Nombre de médailles par pays</h3>
+<div ><span class="labelContainer">Nombre de J.O.cumulés: {{labelOfNbOfJO}} </span><span class="labelContainer">  Nombre de pays: {{labelOfNbCountry}}</span></div>
+<canvas class ="chartContainer" id ='pays-list-piechart' baseChart 
     [type]="'pie'"
     [datasets]="pieChartDatasets"         
-    [labels]="pieChartLabels" 
+    [labels]="pieChartLabels"
     [options]="pieChartOptions"
     [plugins]="pieChartPlugins"
     [legend]="pieChartLegend"
     [options]="pieChartOptions"
+    
     (chartClick)="onChartClick($event)"
     >
 </canvas>
+</div>

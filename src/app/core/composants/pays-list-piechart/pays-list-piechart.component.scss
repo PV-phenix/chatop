@@ -1,0 +1,84 @@
+  .labelTitle{
+    display:flex;
+    max-height: 500px;
+    max-width: 500px;
+    height: 25px; 
+    border: 2px solid rgb(4, 131, 143,0.69);
+    border-radius:5px ;
+    background-color: rgb(4, 131, 143,0.69);
+  }
+  
+  .labelContainer{
+   
+    align-content:start;
+    vertical-align: middle;
+    height: 20px;
+    border: 2px solid rgb(4, 131, 43);
+    border-radius:5px ;
+    max-height: 500px;
+    max-width: 500px;
+    padding: 3px;
+   }
+
+  .divContainer{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content:center;
+    max-width: 500px;
+       
+        
+  }
+  .chartCanvas {
+    padding-left: 0;
+    margin-left: 0;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+  
+  }
+  
+  .chartContainer {
+    max-height: 500px;
+    max-width: 500px;
+    margin: center;
+    padding: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+ 
+    
+  }
+
+// Predefined Break-points
+$mediaMaxWidth: 1260px;
+$mediaBp1Width: 960px;
+$mediaMinWidth: 480px;
+$mediaMinWidth: 360px;
+
+@function translate-media-condition($c) {
+  $condMap: (
+    "screen": "only screen",
+    "print": "only print",
+    "retina": "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5), (min-resolution: 120dpi)",
+    ">maxWidth": "(min-width: #{$mediaMaxWidth + 1})",
+    "<maxWidth": "(max-width: #{$mediaMaxWidth})", 		
+    ">bp1Width": "(min-width: #{$mediaBp1Width + 1})",
+    "<bp1Width": "(max-width: #{$mediaBp1Width})",
+    ">minWidth": "(min-width: #{$mediaMinWidth + 1})",
+    "<minWidth": "(max-width: #{$mediaMinWidth})"
+  );
+  @return map-get( $condMap, $c );
+}
+
+// The mdia mixin
+@mixin media($args...) {
+  $query: "";
+  @each $arg in $args {
+    $op: "";
+    @if ( $query != "" ) {
+      $op: " and ";
+    }
+    $query: $query + $op + translate-media-condition($arg);
+  }
+  @media #{$query}  { @content; }
+}
