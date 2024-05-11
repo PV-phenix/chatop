@@ -29,6 +29,3 @@ Une fois maîtrisé, vous devriez continuer en créant les interfaces typescript
 Vous êtes maintenant prêt à implémenter les fonctionnalités demandées.
 
 Nous vous souhaitons bonne chance !
-
-
-Traduit avec DeepL.com (version gratuite)
