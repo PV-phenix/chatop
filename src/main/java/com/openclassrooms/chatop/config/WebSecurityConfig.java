@@ -15,7 +15,7 @@ import com.openclassrooms.chatop.service.CustomUserDetailsService;
 
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class WebSecurityConfig {
 	
 	
@@ -25,11 +25,18 @@ public class WebSecurityConfig {
 		
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/admin").hasRole("ADMIN");
-			auth.requestMatchers("/user").hasRole("USER");
-			auth.anyRequest().authenticated();
-		}).formLogin(Customizer.withDefaults()).build();
+		return http
+                .cors(cors -> cors.disable())
+                .csrf(csrf ->csrf.disable())
+                .authorizeHttpRequests(auth -> {
+					                            auth.requestMatchers("/admin").hasRole("ADMIN");
+					                            auth.requestMatchers("/user").hasRole("USER");
+//					                            auth.requestMatchers("/api/auth/register").hasRole("ADMIN");
+					                            auth.requestMatchers("/**").authenticated();
+					                            auth.anyRequest().authenticated();
+                                				}
+                        			)
+                 .formLogin(Customizer.withDefaults()).build();
 	}
 	
 	@Bean

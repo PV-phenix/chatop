@@ -34,12 +34,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 
 		logger.info("Entering in loadUserByUsername Method...");
-		DBUser myUser = myUserRepository.findUserByName(name);
+		DBUser myUser = myUserRepository.findByName(name);
         if (myUser == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
         logger.info("User Authenticated By Name Successfully..!!!");
         logger.info(myUser.getRole());
+                
         return new User(myUser.getName(),myUser.getPassword(),getGrantedAuthorities(myUser.getRole()));
        
 	
@@ -49,7 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
 		
 		logger.info("Entering in findUserByEmail Method...");
-		DBUser myUser = myUserRepository.findUserByEmail(email);
+		DBUser myUser = myUserRepository.findByEmail(email);
         if (myUser == null) {
             throw new UsernameNotFoundException("Could not find user");
         }

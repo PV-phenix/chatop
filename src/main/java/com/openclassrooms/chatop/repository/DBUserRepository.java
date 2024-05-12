@@ -10,11 +10,11 @@ import com.openclassrooms.chatop.model.DBUser;
 
 public interface DBUserRepository extends JpaRepository<DBUser, Long> {
 	
-	public DBUser findUserByName(String name);
+	public DBUser findByName(String name);
 
-	public DBUser findUserByEmail(String email);
+	public DBUser findByEmail(String email);
 	
-	public DBUser findUserById(long id);
+	public DBUser findById(long id);
 	
 	public List<DBUser> findAll();
 	

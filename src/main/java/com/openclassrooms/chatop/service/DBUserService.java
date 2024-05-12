@@ -15,7 +15,7 @@ public class DBUserService {
 
 	public DBUser getDBUserById(long id) { 
 		
-		return dbUserRepository.findUserById(id);
+		return dbUserRepository.findById(id);
 
 	}
 	
@@ -27,11 +27,18 @@ public class DBUserService {
 	
 	public DBUser getDBUserByEmail(String email) { 
 		
-		DBUser dbuser = dbUserRepository.findUserByEmail(email);
+			
+		return dbUserRepository.findByEmail(email);
+
+	}	
+	
+	public DBUser getDBUserByName(String name) { 
 		
-		return dbUserRepository.findUserByName(dbuser.getName());
+		 return dbUserRepository.findByName(name);
 
 	}
+	
+	
 	
 	public DBUser save(DBUser dbUser) { 
 		
