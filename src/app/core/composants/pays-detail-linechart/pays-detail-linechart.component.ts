@@ -51,7 +51,6 @@ export class PaysDetailLinechartComponent implements OnInit
         { if(participationId <donne.map(c=>c.id).length) 
         
             {
-              console.log(participationId);
               this.olympicService.getCountry(participationId).subscribe(donne =>{this.labelOfLineChart=donne[participationId].country});
               this.olympicService.getCountry(participationId-1).subscribe
               ( donne =>
