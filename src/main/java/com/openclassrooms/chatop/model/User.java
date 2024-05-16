@@ -12,13 +12,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 
-public class DBUser {
+public class User {
 	
-    public DBUser() {
+    public User() {
     	  
     }
  
-    public DBUser(String email, String password) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
         

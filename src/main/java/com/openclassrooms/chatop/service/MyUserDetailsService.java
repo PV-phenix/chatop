@@ -8,40 +8,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+	
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.chatop.model.DBUser;
-import com.openclassrooms.chatop.repository.DBUserRepository;
+import com.openclassrooms.chatop.model.User;
+import com.openclassrooms.chatop.model.UserPrincipal;
+import com.openclassrooms.chatop.repository.UserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private DBUserRepository myUserRepository;
+    private UserRepository userRepository;
     
    
-    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MyUserDetailsService.class);
 
 	
 	@Override
-	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		logger.info("Entering in loadUserByUsername Method...");
-		DBUser myUser = myUserRepository.findByName(name);
-        if (myUser == null) {
+		User user = userRepository.findByName(username);
+        if (user == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
         logger.info("User Authenticated By Name Successfully..!!!");
-        logger.info(myUser.getRole());
+        //logger.info(userPrincipal.getRole());
                 
-        return new User(myUser.getName(),myUser.getPassword(),getGrantedAuthorities(myUser.getRole()));
+        return new UserPrincipal(user);
        
 	
 	}
@@ -50,12 +51,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
 		
 		logger.info("Entering in findUserByEmail Method...");
-		DBUser myUser = myUserRepository.findByEmail(email);
-        if (myUser == null) {
+		User user = userRepository.findByEmail(email);
+        if (user == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
         logger.info("User Authenticated by email Successfully..!!!");
-        return new User(myUser.getName(),myUser.getPassword(),getGrantedAuthorities(myUser.getRole()));
+        return new UserPrincipal(user);
 	}
 	
 	private List<GrantedAuthority> getGrantedAuthorities(String role) {
@@ -66,13 +67,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 	
     @Transactional
-    public Iterable<DBUser> loadAllUsers(){
-        return myUserRepository.findAll();
+    public Iterable<User> loadAllUsers(){
+        return userRepository.findAll();
     }
 	
     @Transactional
-    public DBUser saveUsers(DBUser dbUser){
-        return myUserRepository.save(dbUser);
+    public User saveUsers(User user){
+        return userRepository.save(user);
     }
     
 
