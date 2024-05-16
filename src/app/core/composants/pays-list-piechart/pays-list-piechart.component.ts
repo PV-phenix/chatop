@@ -89,7 +89,7 @@ export class PaysListPiechartComponent implements OnInit {
         
   }
 }
-function countMedals(c: Country): any {
+function countMedals(c: Country): number {
   let medalsCount = 0;
   
   c.participations.forEach(function (value) {
@@ -101,14 +101,14 @@ function countMedals(c: Country): any {
 
 
 
-function countNbJO(p: Participation[]): any 
+function countNbJO(p: Participation[]): number
 {
     if (!p.filter(o => o.year).length) throw new Error('Function not implemented.');
     return p.filter(o => o.id).length;
 
 }
 
-function cumulNbJo(tab:number[]){
+function cumulNbJo(tab:number[]):number{
   let sumOfJo= 0;
   tab.forEach(item=> {sumOfJo += item})
  
