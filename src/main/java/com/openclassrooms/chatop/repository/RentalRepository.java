@@ -1,10 +1,8 @@
 package com.openclassrooms.chatop.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.openclassrooms.chatop.model.Rental;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RentalRepository extends JpaRepository<Rental, Integer> {
 

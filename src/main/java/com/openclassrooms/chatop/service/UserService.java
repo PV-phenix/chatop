@@ -1,11 +1,9 @@
 package com.openclassrooms.chatop.service;
 
+import com.openclassrooms.chatop.model.User;
+import com.openclassrooms.chatop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.openclassrooms.chatop.model.User;
-import com.openclassrooms.chatop.model.UserPrincipal;
-import com.openclassrooms.chatop.repository.UserRepository;
 
 @Service
 public class UserService {

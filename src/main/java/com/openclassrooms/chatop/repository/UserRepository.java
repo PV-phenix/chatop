@@ -1,12 +1,9 @@
 package com.openclassrooms.chatop.repository;
 
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.openclassrooms.chatop.model.User;
-
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
