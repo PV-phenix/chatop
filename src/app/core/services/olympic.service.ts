@@ -80,9 +80,6 @@ export class OlympicService {
 
   getDetailCountryById(participationId: Number): Observable<Participation[]>{return this.http.get<Participation[]>(this.olympicUrl).pipe(tap(() => this.olympics$.next(participationId)))};
 
-  ngOnDestroy(): void 
-  {
-    this.olympics$.complete;
-  }
+
 }
 

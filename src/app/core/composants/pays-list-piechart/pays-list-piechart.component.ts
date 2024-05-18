@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Country } from '@app/core/models/Olympic';
 import { Participation } from '@core/models/Participation';
 import { OlympicService } from '@core/services/olympic.service';
 import { Chart, ChartData, ChartOptions, ChartType } from 'chart.js/auto';
+import { Subscription } from 'rxjs';
 
 
 
@@ -14,13 +15,13 @@ import { Chart, ChartData, ChartOptions, ChartType } from 'chart.js/auto';
   
 ]
 })
-export class PaysListPiechartComponent implements OnInit {
+export class PaysListPiechartComponent implements OnInit,OnDestroy {
     
   constructor(private olympicService: OlympicService, private route:Router) {
 
   } ;
 
-  // interval$!: Observable<Country[]>;
+  subscriptionAllCountry:Subscription= new Subscription;
  
   pieChartType: any = 'pie';
   pieChartData!: ChartData<ChartType, number[], string>;
@@ -48,7 +49,7 @@ export class PaysListPiechartComponent implements OnInit {
     
   let myArray:number[]=[0];
   
-  this.olympicService.getAllCountry().subscribe
+  this.subscriptionAllCountry= this.olympicService.getAllCountry().subscribe
     (
       donne => {
                 this.pieChartDatasets =[{data:donne.map(c=>countMedals(c)),backgroundColor:this.pointBackgroundColors}];
@@ -85,7 +86,7 @@ export class PaysListPiechartComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.olympicService.ngOnDestroy();
+    this.subscriptionAllCountry.unsubscribe();
         
   }
 }

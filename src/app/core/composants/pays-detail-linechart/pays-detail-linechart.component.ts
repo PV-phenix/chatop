@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorMessageService } from '@core/services/error-message.service';
 import { OlympicService } from '@core/services/olympic.service';
 import { ChartConfiguration, ChartOptions } from 'chart.js/auto';
-
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -11,11 +11,13 @@ import { ChartConfiguration, ChartOptions } from 'chart.js/auto';
   templateUrl: './pays-detail-linechart.component.html',
   styleUrls: ['./pays-detail-linechart.component.scss']
 })
-export class PaysDetailLinechartComponent implements OnInit 
+export class PaysDetailLinechartComponent implements OnInit,OnDestroy
 {
 
   constructor(private olympicService: OlympicService, private route:ActivatedRoute,private Route:Router,private errorMessageSvc: ErrorMessageService) { }
 
+  subscriptionAllCountry:Subscription= new Subscription;
+ 
   myCondition : boolean=false;
   TabIndex:number[]=[];
   labelOfLineChart!: string;  
@@ -46,7 +48,7 @@ export class PaysDetailLinechartComponent implements OnInit
     try
     {
     
-      this.olympicService.getAllCountry().subscribe
+      this.subscriptionAllCountry =this.olympicService.getAllCountry().subscribe
       (donne =>
         { if(participationId <donne.map(c=>c.id).length) 
         
@@ -117,13 +119,19 @@ export class PaysDetailLinechartComponent implements OnInit
       }
 
     catch(error){}
-    finally 
-    {
-      this.olympicService.ngOnDestroy();
-    }
+
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscriptionAllCountry.unsubscribe();
+        
   }
      
 }
+
+
 
 function toPercent(myNumber: number[]): number[] 
 {
