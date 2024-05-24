@@ -1,21 +1,22 @@
 package com.openclassrooms.chatop.repository;
 
-
 import com.openclassrooms.chatop.model.User;
-import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.List;
+
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	
-	public User findByName(String name);
+	Optional<User> findByUsername(String username);
 
-	public User findByEmail(String email);
-	
-	public User findById(long id);
-	
-	public List<User> findAll();
-	
-	@SuppressWarnings("unchecked")
-	public User save(User user);
-	
+	Optional<User> findById(long id);
+
+	List<User> findAll();
+
+	Boolean existsByUsername(String username);
+
+	Boolean existsByEmail(String email);
 }
